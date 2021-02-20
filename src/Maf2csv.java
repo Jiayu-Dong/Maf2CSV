@@ -34,8 +34,8 @@ public class Maf2csv {
                     String[] te = tem[1].split("\\.");
                     int gap = tem[6].length() - tem[6].replace("-","").length();
                     if (temp.contains("traes"+ sub)) {
-                        int stop = Integer.parseInt(tem[2]) + Integer.parseInt(tem[3]);
-                        strb.append(te[1]).append("\t").append(tem[2]).append("\t").append(Integer.toString(stop)).append("\t").append(Integer.toString(tem[6].length())).append("\t")
+                        int end = Integer.parseInt(tem[2]) + Integer.parseInt(tem[3]);
+                        strb.append(te[1]).append("\t").append(tem[2]).append("\t").append(Integer.toString(end)).append("\t").append(Integer.toString(tem[6].length())).append("\t")
                                 .append("traes").append(sub).append("\t").append(tem[3]).append("\t").append(Integer.toString(gap)).append("\t");
                     } else {
                         strb.append(te[0]).append("\t").append(tem[3]).append("\t").append(Integer.toString(gap)).append("\t");
@@ -74,6 +74,15 @@ public class Maf2csv {
                         }
                     }
                     al.add(5, Integer.toString(blockSize));
+                    if (count == 1) {
+                        strb.append("Chr").append("\t").append("Start(inclusive)").append("\t").append("End(exclusive)").append("\t")
+                                .append("BlockLength").append("\t").append("GapCounts(all)").append("\t").append("BlockSize").append("\t");
+                        for (int i = 0; i < lineage.size(); i++) {
+                            strb.append(lineage.get(i)).append("\t").append("AlignedBasesNumber").append("\t");
+                        }
+                        strb.append("\n");
+                        System.out.println("Starting processing, please be patient!");
+                    }
                     for (String i : al) {
                         strb.append(i).append("\t");
                     }
@@ -83,7 +92,7 @@ public class Maf2csv {
                     strb.delete(0,strb.length());
 
                     if (count % 500000 == 0) {
-                        System.out.println("Processing" + " " + count + " " + "blocks");
+                        System.out.println("Processing" + " " + count + " " + "blocks :)");
                     }
 
                 }
