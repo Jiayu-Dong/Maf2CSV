@@ -90,7 +90,9 @@ public class IOutils {
             br = new BufferedReader(new FileReader(infileS));
             while ((temp=br.readLine()) != null) {
                 String[] tem = temp.split("\t");
-                al.addAll(Arrays.asList(tem));
+                for (int i = 0; i < tem.length; i++) {
+                    al.add(i,tem[i]);
+                }
             }
         }
         catch (Exception e) {
